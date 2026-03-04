@@ -324,13 +324,13 @@ export function PracticeSession() {
       </header>
 
       <article className="prompt-card">
-        <p className="card-title">Chinese:</p>
+        <p className="card-title">Chinese</p>
         <p className="prompt-text">{currentCard.hanzi}</p>
       </article>
 
       <section className="helper-card">
         <div className="answer-card-head">
-          <p className="card-title">English:</p>
+          <p className="card-title">English</p>
         </div>
 
         <p className="helper-text">{getStatusCopy(status)}</p>

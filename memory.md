@@ -32,7 +32,7 @@
 - The `LingoPig` wordmark now matches DictateAI's title styling: `SF Pro Display` with `font-weight: 700`
 - The subtitle under the product name uses `SF Pro Display`, currently reads `Word and pronunciation practice`, and the two-line brand lockup is vertically centered against the `64x64` app logo
 - The top-left LingoPig icon is larger than the initial version, is currently rendered at `64x64`, and now uses shadow only with no outline ring
-- The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains a large circular microphone button using `microphone.png`
+- The homepage now uses two primary stacked cards: a `Chinese` prompt card and an `English` action card that contains a large circular microphone button using `microphone.png`
 - The microphone glyph inside the circular button is now slightly inset so a true black ring shows around it, and long-press recording adds a blue pulsing glow around the button
 - The Chinese prompt card, English action card, and result card now use centered text alignment
 - The header no longer shows a top-right phrase counter
