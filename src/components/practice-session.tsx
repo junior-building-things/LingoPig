@@ -50,12 +50,11 @@ function getFeedbackCopy(result: AttemptEvaluation) {
     return "You were close. Try it once more with clearer pronunciation or wording.";
   }
 
-  return "That did not match yet. Reveal the English if you need a quick hint, then try again.";
+  return "That did not match yet. Take another shot and try again.";
 }
 
 export function PracticeSession() {
   const [cardIndex, setCardIndex] = useState(0);
-  const [isEnglishRevealed, setIsEnglishRevealed] = useState(false);
   const [status, setStatus] = useState<SessionStatus>("idle");
   const [feedback, setFeedback] = useState<AttemptEvaluation | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -221,7 +220,6 @@ export function PracticeSession() {
     }
 
     setCardIndex((currentIndex) => (currentIndex + 1) % currentDeck.length);
-    setIsEnglishRevealed(false);
     setFeedback(null);
     setErrorMessage(null);
   }
@@ -285,14 +283,6 @@ export function PracticeSession() {
       <section className="helper-card">
         <div className="answer-card-head">
           <p className="card-title">English:</p>
-          <button
-            type="button"
-            className="ghost-button"
-            onClick={() => setIsEnglishRevealed((currentValue) => !currentValue)}
-            disabled={status !== "idle"}
-          >
-            {isEnglishRevealed ? "Hide English" : "Reveal English"}
-          </button>
         </div>
 
         <p className="helper-text">{getStatusCopy(status)}</p>
@@ -332,16 +322,6 @@ export function PracticeSession() {
             aria-hidden="true"
           />
         </button>
-
-        {isEnglishRevealed ? (
-          <div className="revealed-answer">
-            <p className="label">English answer</p>
-            <p className="answer-text">{currentCard.englishAnswer}</p>
-            <p className="answer-note">
-              Use the reveal as a prompt, then hold the mic and say it naturally.
-            </p>
-          </div>
-        ) : null}
       </section>
 
       {feedback ? (
@@ -367,9 +347,8 @@ export function PracticeSession() {
           onClick={() => {
             setFeedback(null);
             setErrorMessage(null);
-            setIsEnglishRevealed(false);
           }}
-          disabled={status !== "idle" || (!feedback && !errorMessage && !isEnglishRevealed)}
+          disabled={status !== "idle" || (!feedback && !errorMessage)}
         >
           Reset Card
         </button>

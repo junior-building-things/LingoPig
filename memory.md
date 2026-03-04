@@ -17,7 +17,7 @@
 - The core loop is spoken translation recall: the user reads Chinese and must produce the English equivalent out loud
 - Speech recognition quality and tolerant English answer matching matter more than passive flashcard behavior
 - The user is assumed to already be native or highly fluent in Chinese, so Chinese audio playback is not a useful helper for the MVP
-- The main helper should be revealing the English translation text; the learner can still use that revealed answer to practice speaking it out loud
+- The current homepage flow does not expose the English answer as a reveal helper; the learner works from recall plus retry feedback
 
 ## Initial Scaffold
 - Frontend/runtime scaffold: Next.js app-router project with React 19 and TypeScript
@@ -26,13 +26,13 @@
 - Speech checking is wired through a server route at `src/app/api/transcribe/route.ts`
 - The server route calls OpenAI transcription with `gpt-4o-transcribe`, locked to English transcription (`language=en`)
 - Answer grading is deterministic and local via normalization plus tolerant edit-distance matching in `src/lib/grading.ts`
-- MVP helpers currently include English reveal, reset card, and next phrase navigation
+- MVP helpers currently include reset card and next phrase navigation
 - `npm run sync:phrases` regenerates `src/lib/deck.ts`, but the sync is manual now; `dev`, `build`, and `typecheck` no longer run it automatically
 - The app uses `lingo-pig-icon.png` for Next.js app icons and in the top-left header beside the product name
 - The `LingoPig` wordmark now matches DictateAI's title styling: `SF Pro Display` with `font-weight: 700`
 - The subtitle under the product name uses `SF Pro Display` styling aligned with DictateAI's subtitle treatment and currently reads `Word and pronunciation practice`
 - The top-left LingoPig icon is larger than the initial version
-- The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains a large circular microphone button using `microphone.png` plus the reveal-English control
+- The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains a large circular microphone button using `microphone.png`
 
 ## Deployment Notes
 - A preview deployment was created via the Vercel deploy skill fallback flow
