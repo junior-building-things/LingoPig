@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "sync:phrases": "node scripts/sync-phrases.mjs",
-    "dev": "npm run sync:phrases && next dev",
-    "build": "npm run sync:phrases && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "typecheck": "npm run sync:phrases && tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "next": "^15.0.0",
