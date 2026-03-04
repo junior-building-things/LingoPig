@@ -8,6 +8,11 @@ type PhraseRow = {
 
 const phraseRows: PhraseRow[] = [
   {
+    hanzi: "饭好了",
+    pinyin: "fàn hǎo le",
+    english: "Dinner is ready; The dinner is ready"
+  },
+  {
     hanzi: "其实",
     pinyin: "qíshí",
     english: "actually; in fact; really"
