@@ -36,6 +36,7 @@
 - The microphone glyph inside the circular button has been enlarged to fill more of the button face, and long-press recording now adds a blue pulsing glow around the button
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
+- The recorder now preserves the browser's actual audio MIME type and file extension when uploading to the transcription endpoint, to avoid Safari/iPhone `unsupported or corrupted audio` errors from mismatched `.webm` uploads
 
 ## Deployment Notes
 - A preview deployment was created via the Vercel deploy skill fallback flow

@@ -13,6 +13,44 @@ type ApiError = {
   error: string;
 };
 
+function getPreferredRecordingMimeType() {
+  if (
+    typeof MediaRecorder === "undefined" ||
+    typeof MediaRecorder.isTypeSupported !== "function"
+  ) {
+    return "";
+  }
+
+  const supportedMimeType = [
+    "audio/webm;codecs=opus",
+    "audio/webm",
+    "audio/mp4",
+    "audio/ogg;codecs=opus"
+  ].find((mimeType) => MediaRecorder.isTypeSupported(mimeType));
+
+  return supportedMimeType || "";
+}
+
+function getAudioFileExtension(mimeType: string) {
+  if (mimeType.includes("mp4")) {
+    return "mp4";
+  }
+
+  if (mimeType.includes("ogg")) {
+    return "ogg";
+  }
+
+  if (mimeType.includes("mpeg")) {
+    return "mp3";
+  }
+
+  if (mimeType.includes("wav")) {
+    return "wav";
+  }
+
+  return "webm";
+}
+
 function getStatusCopy(status: SessionStatus) {
   if (status === "preparing") {
     return "Press & hold to speak";
@@ -70,10 +108,15 @@ export function PracticeSession() {
     "mediaDevices" in navigator &&
     typeof window.MediaRecorder !== "undefined";
 
-  async function submitAttempt(blob: Blob, cardId: string) {
+  async function submitAttempt(blob: Blob, cardId: string, mimeType: string) {
     try {
+      const normalizedMimeType = mimeType || blob.type || "audio/webm";
+      const fileExtension = getAudioFileExtension(normalizedMimeType);
+      const audioFile = new File([blob], `attempt.${fileExtension}`, {
+        type: normalizedMimeType
+      });
       const formData = new FormData();
-      formData.append("audio", blob, "attempt.webm");
+      formData.append("audio", audioFile);
       formData.append("cardId", cardId);
 
       const response = await fetch("/api/transcribe", {
@@ -125,7 +168,10 @@ export function PracticeSession() {
     try {
       const cardAtStart = currentCard;
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
+      const preferredMimeType = getPreferredRecordingMimeType();
+      const recorder = preferredMimeType
+        ? new MediaRecorder(stream, { mimeType: preferredMimeType })
+        : new MediaRecorder(stream);
       const chunks: Blob[] = [];
 
       recorderRef.current = recorder;
@@ -149,9 +195,14 @@ export function PracticeSession() {
         stream.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
         recorderRef.current = null;
+        const actualMimeType =
+          recorder.mimeType ||
+          chunks.find((chunk) => chunk.type)?.type ||
+          preferredMimeType ||
+          "audio/webm";
 
         const blob = new Blob(chunks, {
-          type: recorder.mimeType || "audio/webm"
+          type: actualMimeType
         });
 
         if (cancelOnStartRef.current && !blob.size) {
@@ -166,7 +217,7 @@ export function PracticeSession() {
           return;
         }
 
-        await submitAttempt(blob, cardAtStart.id);
+        await submitAttempt(blob, cardAtStart.id, actualMimeType);
       };
 
       recorder.start();
