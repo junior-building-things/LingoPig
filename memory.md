@@ -31,3 +31,7 @@
 ## Deployment Notes
 - A preview deployment was created via the Vercel deploy skill fallback flow
 - The fallback deploy script can exceed the upload limit if `.next` is present locally; package a tarball that excludes `.next` before using the claim-based deploy endpoint
+
+## Git Notes
+- The project now has its own local git repository initialized on `main`
+- Initial commit: `6e6c138` (`Initial LingoPig MVP scaffold`)
