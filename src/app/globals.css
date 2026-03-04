@@ -113,6 +113,7 @@ button {
   background: var(--surface);
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
+  text-align: center;
 }
 
 .prompt-card {
@@ -151,7 +152,7 @@ button {
 .answer-card-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
 }
 
