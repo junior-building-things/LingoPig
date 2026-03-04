@@ -128,6 +128,15 @@ button {
   padding: 1.4rem;
 }
 
+.card-title {
+  margin: 0;
+  color: var(--muted);
+  font-family: "SF Pro Display", "Avenir Next", "Helvetica Neue", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
 .label {
   color: var(--muted);
   font-size: 0.8rem;
@@ -148,7 +157,7 @@ button {
   padding: 1rem 1.1rem;
 }
 
-.helper-row {
+.answer-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -156,6 +165,7 @@ button {
 }
 
 .helper-text {
+  margin: 0.8rem 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.4;
@@ -212,13 +222,6 @@ button {
   line-height: 1.45;
 }
 
-.instruction {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
 .mic-button {
   width: 100%;
   border: 1px solid var(--stroke);
@@ -229,6 +232,7 @@ button {
   text-align: left;
   box-shadow: var(--shadow);
   touch-action: none;
+  margin-top: 1rem;
 }
 
 .mic-button:hover,

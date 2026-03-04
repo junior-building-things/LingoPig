@@ -277,18 +277,13 @@ export function PracticeSession() {
       </header>
 
       <article className="prompt-card">
-        <p className="label">Chinese prompt</p>
+        <p className="card-title">Chinese:</p>
         <p className="prompt-text">{currentCard.hanzi}</p>
       </article>
 
       <section className="helper-card">
-        <div className="helper-row">
-          <div>
-            <p className="label">Hint</p>
-            <p className="helper-text">
-              Reveal the English if you need it, then still say it out loud.
-            </p>
-          </div>
+        <div className="answer-card-head">
+          <p className="card-title">English:</p>
           <button
             type="button"
             className="ghost-button"
@@ -298,6 +293,45 @@ export function PracticeSession() {
             {isEnglishRevealed ? "Hide English" : "Reveal English"}
           </button>
         </div>
+
+        <p className="helper-text">{getStatusCopy(status)}</p>
+
+        <button
+          type="button"
+          className={micButtonClassNames}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.currentTarget.setPointerCapture(event.pointerId);
+            void startRecording();
+          }}
+          onPointerUp={(event) => {
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }
+
+            stopRecording();
+          }}
+          onPointerCancel={(event) => {
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+              event.currentTarget.releasePointerCapture(event.pointerId);
+            }
+
+            stopRecording();
+          }}
+          onContextMenu={(event) => event.preventDefault()}
+          disabled={!hasAccessToMedia || status === "submitting"}
+        >
+          <span className="mic-label">Hold To Speak</span>
+          <span className="mic-copy">
+            {status === "recording"
+              ? "Recording your English answer..."
+              : status === "submitting"
+                ? "Checking your answer..."
+                : status === "preparing"
+                  ? "Waiting for microphone access..."
+                  : "Press and hold, then release to submit"}
+          </span>
+        </button>
 
         {isEnglishRevealed ? (
           <div className="revealed-answer">
@@ -309,45 +343,6 @@ export function PracticeSession() {
           </div>
         ) : null}
       </section>
-
-      <p className="instruction">{getStatusCopy(status)}</p>
-
-      <button
-        type="button"
-        className={micButtonClassNames}
-        onPointerDown={(event) => {
-          event.preventDefault();
-          event.currentTarget.setPointerCapture(event.pointerId);
-          void startRecording();
-        }}
-        onPointerUp={(event) => {
-          if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-            event.currentTarget.releasePointerCapture(event.pointerId);
-          }
-
-          stopRecording();
-        }}
-        onPointerCancel={(event) => {
-          if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-            event.currentTarget.releasePointerCapture(event.pointerId);
-          }
-
-          stopRecording();
-        }}
-        onContextMenu={(event) => event.preventDefault()}
-        disabled={!hasAccessToMedia || status === "submitting"}
-      >
-        <span className="mic-label">Hold To Speak</span>
-        <span className="mic-copy">
-          {status === "recording"
-            ? "Recording your English answer..."
-            : status === "submitting"
-              ? "Checking your answer..."
-              : status === "preparing"
-                ? "Waiting for microphone access..."
-                : "Press and hold, then release to submit"}
-        </span>
-      </button>
 
       {feedback ? (
         <section className={feedbackClassNames}>
