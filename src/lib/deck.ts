@@ -59,7 +59,18 @@ const phraseRows: PhraseRow[] = [
   }
 ];
 
-function expandAcceptedEnglishAnswers(english: string) {
+const extraAcceptedAnswersByHanzi: Record<string, string[]> = {
+  "你好": [
+    "hi",
+    "hey",
+    "yo"
+  ]
+};
+
+function expandAcceptedEnglishAnswers(
+  english: string,
+  extraAnswers: string[] = []
+) {
   const variants = new Set<string>();
   const normalizedEnglish = english.trim();
 
@@ -76,6 +87,12 @@ function expandAcceptedEnglishAnswers(english: string) {
     }
   }
 
+  for (const extraAnswer of extraAnswers
+    .map((answer) => answer.trim())
+    .filter(Boolean)) {
+    variants.add(extraAnswer);
+  }
+
   return Array.from(variants);
 }
 
@@ -84,5 +101,8 @@ export const currentDeck: SpeakingCard[] = phraseRows.map((row, index) => ({
   hanzi: row.hanzi,
   pinyin: row.pinyin,
   englishAnswer: row.english,
-  acceptedEnglishAnswers: expandAcceptedEnglishAnswers(row.english)
+  acceptedEnglishAnswers: expandAcceptedEnglishAnswers(
+    row.english,
+    extraAcceptedAnswersByHanzi[row.hanzi] || []
+  )
 }));

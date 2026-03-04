@@ -6,6 +6,10 @@ const sourceFileName = "hsk1-phrases.csv";
 const sourcePath = path.join(projectRoot, sourceFileName);
 const outputPath = path.join(projectRoot, "src", "lib", "deck.ts");
 
+const extraAcceptedAnswersByHanzi = {
+  "你好": ["hi", "hey", "yo"]
+};
+
 function parsePhrasesCsv(rawCsv) {
   const normalizedCsv = rawCsv.replace(/^\uFEFF/, "");
   const lines = normalizedCsv
@@ -40,6 +44,11 @@ function buildDeckModule(rows) {
         `  {\n    hanzi: ${JSON.stringify(row.hanzi)},\n    pinyin: ${JSON.stringify(row.pinyin)},\n    english: ${JSON.stringify(row.english)}\n  }`
     )
     .join(",\n");
+  const serializedExtraAcceptedAnswers = JSON.stringify(
+    extraAcceptedAnswersByHanzi,
+    null,
+    2
+  );
 
   return `import type { SpeakingCard } from "@/lib/types";
 
@@ -53,7 +62,12 @@ const phraseRows: PhraseRow[] = [
 ${serializedRows}
 ];
 
-function expandAcceptedEnglishAnswers(english: string) {
+const extraAcceptedAnswersByHanzi: Record<string, string[]> = ${serializedExtraAcceptedAnswers};
+
+function expandAcceptedEnglishAnswers(
+  english: string,
+  extraAnswers: string[] = []
+) {
   const variants = new Set<string>();
   const normalizedEnglish = english.trim();
 
@@ -70,6 +84,12 @@ function expandAcceptedEnglishAnswers(english: string) {
     }
   }
 
+  for (const extraAnswer of extraAnswers
+    .map((answer) => answer.trim())
+    .filter(Boolean)) {
+    variants.add(extraAnswer);
+  }
+
   return Array.from(variants);
 }
 
@@ -78,7 +98,10 @@ export const currentDeck: SpeakingCard[] = phraseRows.map((row, index) => ({
   hanzi: row.hanzi,
   pinyin: row.pinyin,
   englishAnswer: row.english,
-  acceptedEnglishAnswers: expandAcceptedEnglishAnswers(row.english)
+  acceptedEnglishAnswers: expandAcceptedEnglishAnswers(
+    row.english,
+    extraAcceptedAnswersByHanzi[row.hanzi] || []
+  )
 }));
 `;
 }

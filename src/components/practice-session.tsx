@@ -91,6 +91,26 @@ function getFeedbackCopy(result: AttemptEvaluation) {
   return "That did not match yet. Take another shot and try again.";
 }
 
+function getAlternativePhrases(englishAnswer: string, acceptedAnswers: string[]) {
+  const normalizedPrimary = englishAnswer.trim().toLowerCase();
+  const seen = new Set<string>();
+
+  return acceptedAnswers.filter((answer) => {
+    const normalizedAnswer = answer.trim().toLowerCase();
+
+    if (!normalizedAnswer || normalizedAnswer === normalizedPrimary) {
+      return false;
+    }
+
+    if (seen.has(normalizedAnswer)) {
+      return false;
+    }
+
+    seen.add(normalizedAnswer);
+    return true;
+  });
+}
+
 export function PracticeSession() {
   const [cardIndex, setCardIndex] = useState(0);
   const [status, setStatus] = useState<SessionStatus>("idle");
@@ -303,6 +323,10 @@ export function PracticeSession() {
   ]
     .filter(Boolean)
     .join(" ");
+  const alternativePhrases = getAlternativePhrases(
+    currentCard.englishAnswer,
+    currentCard.acceptedEnglishAnswers
+  );
 
   return (
     <section className="session">
@@ -378,8 +402,16 @@ export function PracticeSession() {
         <section className={feedbackClassNames}>
           <p className={feedbackTitleClassNames}>{getFeedbackTitle(feedback)}</p>
           <p className="feedback-copy">{getFeedbackCopy(feedback)}</p>
-          <p className="transcript-label">We heard</p>
+          <p className="transcript-label">You said</p>
           <p className="transcript-text">{feedback.transcript}</p>
+          {alternativePhrases.length ? (
+            <>
+              <p className="transcript-label">Alternative phrases:</p>
+              <p className="transcript-text">
+                {alternativePhrases.join(", ")}
+              </p>
+            </>
+          ) : null}
         </section>
       ) : null}
 
