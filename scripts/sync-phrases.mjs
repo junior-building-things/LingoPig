@@ -10,6 +10,13 @@ const extraAcceptedAnswersByHanzi = {
   "你好": ["hi", "hey", "yo"]
 };
 
+function splitEnglishVariants(english) {
+  return english
+    .split(/[;/]/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
 function parsePhrasesCsv(rawCsv) {
   const normalizedCsv = rawCsv.replace(/^\uFEFF/, "");
   const lines = normalizedCsv
@@ -64,24 +71,30 @@ ${serializedRows}
 
 const extraAcceptedAnswersByHanzi: Record<string, string[]> = ${serializedExtraAcceptedAnswers};
 
+function splitEnglishVariants(english: string) {
+  return english
+    .split(/[;/]/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
 function expandAcceptedEnglishAnswers(
   english: string,
   extraAnswers: string[] = []
 ) {
   const variants = new Set<string>();
-  const normalizedEnglish = english.trim();
+  const baseVariants = splitEnglishVariants(english);
 
-  if (normalizedEnglish) {
-    variants.add(normalizedEnglish);
+  if (!baseVariants.length) {
+    const normalizedEnglish = english.trim();
+
+    if (normalizedEnglish) {
+      variants.add(normalizedEnglish);
+    }
   }
 
-  if (normalizedEnglish.includes("/")) {
-    for (const variant of normalizedEnglish
-      .split("/")
-      .map((part) => part.trim())
-      .filter(Boolean)) {
-      variants.add(variant);
-    }
+  for (const variant of baseVariants) {
+    variants.add(variant);
   }
 
   for (const extraAnswer of extraAnswers
@@ -97,7 +110,7 @@ export const currentDeck: SpeakingCard[] = phraseRows.map((row, index) => ({
   id: \`phrase-\${String(index + 1).padStart(3, "0")}\`,
   hanzi: row.hanzi,
   pinyin: row.pinyin,
-  englishAnswer: row.english,
+  englishAnswer: splitEnglishVariants(row.english)[0] || row.english.trim(),
   acceptedEnglishAnswers: expandAcceptedEnglishAnswers(
     row.english,
     extraAcceptedAnswersByHanzi[row.hanzi] || []
