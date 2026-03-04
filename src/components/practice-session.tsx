@@ -291,6 +291,7 @@ export function PracticeSession() {
           type="button"
           className={micButtonClassNames}
           aria-label="Press and hold to speak"
+          onDragStart={(event) => event.preventDefault()}
           onPointerDown={(event) => {
             event.preventDefault();
             event.currentTarget.setPointerCapture(event.pointerId);
@@ -320,6 +321,7 @@ export function PracticeSession() {
             width={66}
             height={66}
             aria-hidden="true"
+            draggable={false}
           />
         </button>
       </section>

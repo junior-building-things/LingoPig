@@ -203,26 +203,6 @@ button {
   opacity: 0.5;
 }
 
-.revealed-answer {
-  margin-top: 1rem;
-  border-top: 1px solid var(--stroke);
-  padding-top: 1rem;
-}
-
-.answer-text {
-  margin: 0.55rem 0 0;
-  font-size: clamp(1.6rem, 6vw, 2.3rem);
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.answer-note {
-  margin: 0.55rem 0 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
-
 .mic-button {
   display: flex;
   width: clamp(7.5rem, 32vw, 9rem);
@@ -237,6 +217,10 @@ button {
   box-shadow: var(--shadow);
   touch-action: none;
   margin: 1rem auto 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mic-button:hover,
@@ -261,6 +245,11 @@ button {
   width: clamp(3.4rem, 14vw, 4.1rem);
   height: auto;
   border-radius: 999px;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .feedback {
