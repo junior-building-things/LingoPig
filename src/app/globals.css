@@ -76,9 +76,7 @@ button {
 .brand-icon {
   border-radius: 18px;
   flex-shrink: 0;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 12px 28px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
 }
 
 .brand-lockup {
@@ -194,6 +192,7 @@ button {
 }
 
 .mic-button {
+  position: relative;
   display: flex;
   width: clamp(7.5rem, 32vw, 9rem);
   height: clamp(7.5rem, 32vw, 9rem);
@@ -211,6 +210,27 @@ button {
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+}
+
+.mic-button::after {
+  content: "";
+  position: absolute;
+  inset: -0.45rem;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      circle,
+      rgba(92, 163, 255, 0.32) 0%,
+      rgba(92, 163, 255, 0.14) 45%,
+      transparent 72%
+    );
+  opacity: 0;
+  transform: scale(0.84);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  z-index: -1;
 }
 
 .mic-button:hover,
@@ -220,11 +240,21 @@ button {
 }
 
 .mic-button--recording {
-  border-color: rgba(125, 240, 181, 0.45);
+  border-color: rgba(92, 163, 255, 0.58);
+  background:
+    linear-gradient(180deg, rgba(31, 52, 92, 0.96), rgba(8, 18, 42, 0.98));
   box-shadow:
     var(--shadow),
-    0 0 0 1px rgba(125, 240, 181, 0.2),
-    0 0 22px rgba(125, 240, 181, 0.12);
+    0 0 0 1px rgba(92, 163, 255, 0.24),
+    0 0 28px rgba(92, 163, 255, 0.24),
+    0 0 54px rgba(28, 90, 255, 0.16);
+  animation: micPulse 1.15s ease-in-out infinite;
+}
+
+.mic-button--recording::after {
+  opacity: 1;
+  transform: scale(1);
+  animation: micAura 1.15s ease-in-out infinite;
 }
 
 .mic-button--busy {
@@ -232,14 +262,49 @@ button {
 }
 
 .mic-icon {
-  width: clamp(4.2rem, 17vw, 5rem);
+  width: 82%;
   height: auto;
   border-radius: 999px;
+  object-fit: contain;
   pointer-events: none;
   -webkit-touch-callout: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
   user-select: none;
+}
+
+@keyframes micPulse {
+  0%,
+  100% {
+    box-shadow:
+      var(--shadow),
+      0 0 0 1px rgba(92, 163, 255, 0.24),
+      0 0 28px rgba(92, 163, 255, 0.24),
+      0 0 54px rgba(28, 90, 255, 0.16);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow:
+      var(--shadow),
+      0 0 0 1px rgba(128, 188, 255, 0.34),
+      0 0 36px rgba(92, 163, 255, 0.34),
+      0 0 72px rgba(28, 90, 255, 0.24);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes micAura {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(0.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
 }
 
 .feedback {
