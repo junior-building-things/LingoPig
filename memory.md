@@ -31,6 +31,7 @@
 ## Deployment Notes
 - A preview deployment was created via the Vercel deploy skill fallback flow
 - The fallback deploy script can exceed the upload limit if `.next` is present locally; package a tarball that excludes `.next` before using the claim-based deploy endpoint
+- Going forward, the intended deployment workflow is GitHub-driven: push changes to `main` on `origin`, and let Vercel auto-deploy from the connected repo once Git integration is configured
 
 ## Git Notes
 - The project now has its own local git repository initialized on `main`
