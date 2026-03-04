@@ -35,3 +35,5 @@
 ## Git Notes
 - The project now has its own local git repository initialized on `main`
 - Initial commit: `6e6c138` (`Initial LingoPig MVP scaffold`)
+- GitHub remote: `https://github.com/junior-building-things/LingoPig`
+- `main` is pushed and tracking `origin/main`
