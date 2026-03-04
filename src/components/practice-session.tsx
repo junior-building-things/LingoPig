@@ -15,18 +15,18 @@ type ApiError = {
 
 function getStatusCopy(status: SessionStatus) {
   if (status === "preparing") {
-    return "Waiting for microphone access...";
+    return "Press & hold to speak";
   }
 
   if (status === "recording") {
-    return "Recording now. Release to check your answer.";
+    return "Listening...";
   }
 
   if (status === "submitting") {
-    return "Checking what you said...";
+    return "Analyzing...";
   }
 
-  return "Press and hold to speak the English translation.";
+  return "Press & hold to speak";
 }
 
 function getFeedbackTitle(result: AttemptEvaluation) {
@@ -340,17 +340,6 @@ export function PracticeSession() {
       ) : null}
 
       <div className="footer-actions">
-        <button
-          type="button"
-          className="ghost-button"
-          onClick={() => {
-            setFeedback(null);
-            setErrorMessage(null);
-          }}
-          disabled={status !== "idle" || (!feedback && !errorMessage)}
-        >
-          Reset Card
-        </button>
         <button
           type="button"
           className={nextButtonClassNames}

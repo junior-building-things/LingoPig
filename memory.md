@@ -26,7 +26,7 @@
 - Speech checking is wired through a server route at `src/app/api/transcribe/route.ts`
 - The server route calls OpenAI transcription with `gpt-4o-transcribe`, locked to English transcription (`language=en`)
 - Answer grading is deterministic and local via normalization plus tolerant edit-distance matching in `src/lib/grading.ts`
-- MVP helpers currently include reset card and next phrase navigation
+- MVP helpers currently include next phrase navigation
 - `npm run sync:phrases` regenerates `src/lib/deck.ts`, but the sync is manual now; `dev`, `build`, and `typecheck` no longer run it automatically
 - The app uses `lingo-pig-icon.png` for Next.js app icons and in the top-left header beside the product name
 - The `LingoPig` wordmark now matches DictateAI's title styling: `SF Pro Display` with `font-weight: 700`
