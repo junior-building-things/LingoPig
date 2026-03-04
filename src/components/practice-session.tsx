@@ -301,11 +301,14 @@ export function PracticeSession() {
   ]
     .filter(Boolean)
     .join(" ");
-  const alternativePhrases = getAlternativePhrases(
-    currentCard.englishAnswer,
-    currentCard.acceptedEnglishAnswers,
-    feedback?.normalizedTranscript
-  );
+  const alternativePhrases =
+    feedback?.outcome === "correct"
+      ? getAlternativePhrases(
+          currentCard.englishAnswer,
+          currentCard.acceptedEnglishAnswers,
+          feedback.normalizedTranscript
+        )
+      : [];
 
   return (
     <section className="session">
