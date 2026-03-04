@@ -242,7 +242,7 @@ button {
 }
 
 .mic-icon {
-  width: clamp(3.4rem, 14vw, 4.1rem);
+  width: clamp(4.2rem, 17vw, 5rem);
   height: auto;
   border-radius: 999px;
   pointer-events: none;

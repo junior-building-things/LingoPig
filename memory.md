@@ -33,6 +33,7 @@
 - The subtitle under the product name uses `SF Pro Display` styling aligned with DictateAI's subtitle treatment and currently reads `Word and pronunciation practice`
 - The top-left LingoPig icon is larger than the initial version and is currently rendered at `64x64`
 - The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains a large circular microphone button using `microphone.png`
+- The microphone glyph inside the circular button has been enlarged to fill more of the button face
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
 
 ## Deployment Notes

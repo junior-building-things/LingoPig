@@ -318,8 +318,8 @@ export function PracticeSession() {
             src={microphoneIcon}
             alt=""
             className="mic-icon"
-            width={66}
-            height={66}
+            width={84}
+            height={84}
             aria-hidden="true"
             draggable={false}
           />
