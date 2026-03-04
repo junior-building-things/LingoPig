@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { currentDeck } from "@/lib/deck";
 import type { AttemptEvaluation } from "@/lib/types";
 import lingoPigIcon from "../../lingo-pig-icon.png";
+import microphoneIcon from "../../microphone.png";
 
 type SessionStatus = "idle" | "preparing" | "recording" | "submitting";
 
@@ -262,15 +263,13 @@ export function PracticeSession() {
             src={lingoPigIcon}
             alt="LingoPig icon"
             className="brand-icon"
-            width={38}
-            height={38}
+            width={52}
+            height={52}
             priority
           />
           <div className="brand-lockup">
             <span className="brand-mark">LingoPig</span>
-            <span className="brand-copy">
-              Vocabulary and pronunciation practice
-            </span>
+            <span className="brand-copy">Word and pronunciation practice</span>
           </div>
         </div>
         <span className="progress-pill">
@@ -323,15 +322,28 @@ export function PracticeSession() {
           onContextMenu={(event) => event.preventDefault()}
           disabled={!hasAccessToMedia || status === "submitting"}
         >
-          <span className="mic-label">Hold To Speak</span>
-          <span className="mic-copy">
-            {status === "recording"
-              ? "Recording your English answer..."
-              : status === "submitting"
-                ? "Checking your answer..."
-                : status === "preparing"
-                  ? "Waiting for microphone access..."
-                  : "Press and hold, then release to submit"}
+          <span className="mic-button-row">
+            <span className="mic-badge" aria-hidden="true">
+              <Image
+                src={microphoneIcon}
+                alt=""
+                className="mic-badge-icon"
+                width={28}
+                height={28}
+              />
+            </span>
+            <span className="mic-text-block">
+              <span className="mic-label">Hold To Speak</span>
+              <span className="mic-copy">
+                {status === "recording"
+                  ? "Recording your English answer..."
+                  : status === "submitting"
+                    ? "Checking your answer..."
+                    : status === "preparing"
+                      ? "Waiting for microphone access..."
+                      : "Press and hold, then release to submit"}
+              </span>
+            </span>
           </span>
         </button>
 
