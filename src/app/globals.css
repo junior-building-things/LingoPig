@@ -224,16 +224,19 @@ button {
 }
 
 .mic-button {
-  width: 100%;
+  display: flex;
+  width: clamp(7.5rem, 32vw, 9rem);
+  height: clamp(7.5rem, 32vw, 9rem);
   border: 1px solid var(--stroke);
-  border-radius: 30px;
+  border-radius: 999px;
   background: linear-gradient(180deg, var(--surface-strong), rgba(9, 9, 9, 0.98));
   color: var(--text);
-  padding: 1.15rem 1.2rem;
-  text-align: left;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
   box-shadow: var(--shadow);
   touch-action: none;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
 }
 
 .mic-button:hover,
@@ -254,50 +257,10 @@ button {
   border-color: rgba(255, 210, 122, 0.4);
 }
 
-.mic-label {
-  display: block;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.mic-button-row {
-  display: flex;
-  align-items: center;
-  gap: 0.95rem;
-}
-
-.mic-badge {
-  display: flex;
-  width: 3.6rem;
-  height: 3.6rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
+.mic-icon {
+  width: clamp(3.4rem, 14vw, 4.1rem);
+  height: auto;
   border-radius: 999px;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 40%),
-    rgba(255, 255, 255, 0.06);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 8px 20px rgba(0, 0, 0, 0.24);
-}
-
-.mic-badge-icon {
-  border-radius: 999px;
-}
-
-.mic-text-block {
-  min-width: 0;
-  flex: 1;
-}
-
-.mic-copy {
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.35;
 }
 
 .feedback {
