@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { currentDeck } from "@/lib/deck";
-import { gradeEnglishAttempt } from "@/lib/grading";
+import { gradeEnglishAttempt, normalizeEnglishAnswer } from "@/lib/grading";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -72,8 +72,9 @@ export async function POST(request: Request) {
   }
 
   const transcript = (payload?.text || "").trim();
+  const normalizedTranscript = normalizeEnglishAnswer(transcript);
 
-  if (!transcript) {
+  if (!transcript || !normalizedTranscript) {
     return NextResponse.json(
       {
         error: "No speech was detected. Try recording again.",

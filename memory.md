@@ -39,6 +39,7 @@
 - The active HSK1 CSV now supports semicolon-separated English variants per row; the first variant becomes the primary answer and the full variant set is accepted during grading
 - The result card now omits the explanatory sentence and shows `You said` plus an `Alternative phrases:` section only after a correct answer, excluding whichever accepted phrase the user actually said
 - Mic-flow failures are now fully silent in the UI: no `Issue` banner is rendered, and any recording/transcription error simply returns to the idle `Press & hold to speak` state
+- Punctuation-only transcripts from the speech API (for example `.`) are treated as no speech and also silently return to the idle `Press & hold to speak` state instead of rendering `You said .`
 - The old bottom `Next Phrase` button is removed; navigation now uses back/forward arrow buttons at the top of the Chinese card
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
