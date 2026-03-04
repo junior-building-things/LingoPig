@@ -38,7 +38,7 @@
 - Greeting cards can carry manual accepted English variants beyond the literal translation (for example `你好` accepts `hi`, `hey`, and `yo` in addition to `hello`)
 - The active HSK1 CSV now supports semicolon-separated English variants per row; the first variant becomes the primary answer and the full variant set is accepted during grading
 - The result card now omits the explanatory sentence and shows `You said` plus an `Alternative phrases:` section when the current card has extra accepted variants, excluding whichever accepted phrase the user actually said
-- If a long press produces no captured speech, the UI now silently returns to the idle `Press & hold to speak` state instead of showing an error banner
+- Mic-flow failures are now fully silent in the UI: no `Issue` banner is rendered, and any recording/transcription error simply returns to the idle `Press & hold to speak` state
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
 - The recorder now preserves the browser's actual audio MIME type and file extension when uploading to the transcription endpoint, to avoid Safari/iPhone `unsupported or corrupted audio` errors from mismatched `.webm` uploads

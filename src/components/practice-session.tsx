@@ -113,7 +113,6 @@ export function PracticeSession() {
   const [cardIndex, setCardIndex] = useState(0);
   const [status, setStatus] = useState<SessionStatus>("idle");
   const [feedback, setFeedback] = useState<AttemptEvaluation | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -148,30 +147,13 @@ export function PracticeSession() {
         | null;
 
       if (!response.ok) {
-        if (
-          payload &&
-          "error" in payload &&
-          payload.code === "NO_SPEECH_DETECTED"
-        ) {
-          setErrorMessage(null);
-          setFeedback(null);
-          return;
-        }
-
-        throw new Error(
-          payload && "error" in payload
-            ? payload.error
-            : "We could not check that attempt."
-        );
+        setFeedback(null);
+        return;
       }
 
       setFeedback(payload as AttemptEvaluation);
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "We could not check that attempt."
-      );
+    } catch {
+      setFeedback(null);
     } finally {
       setStatus("idle");
     }
@@ -179,16 +161,9 @@ export function PracticeSession() {
 
   async function startRecording() {
     if (status !== "idle" || !hasAccessToMedia) {
-      if (!hasAccessToMedia) {
-        setErrorMessage(
-          "This browser does not support microphone recording for the current MVP."
-        );
-      }
-
       return;
     }
 
-    setErrorMessage(null);
     setFeedback(null);
     setStatus("preparing");
     cancelOnStartRef.current = false;
@@ -215,7 +190,7 @@ export function PracticeSession() {
         stream.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
         recorderRef.current = null;
-        setErrorMessage("Recording failed. Try again.");
+        setFeedback(null);
         setStatus("idle");
       };
 
@@ -240,7 +215,6 @@ export function PracticeSession() {
         }
 
         if (!blob.size) {
-          setErrorMessage(null);
           setFeedback(null);
           setStatus("idle");
           return;
@@ -266,11 +240,7 @@ export function PracticeSession() {
 
       recorderRef.current = null;
       setStatus("idle");
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Microphone access failed. Check permissions and try again."
-      );
+      setFeedback(null);
     }
   }
 
@@ -301,7 +271,6 @@ export function PracticeSession() {
 
     setCardIndex((currentIndex) => (currentIndex + 1) % currentDeck.length);
     setFeedback(null);
-    setErrorMessage(null);
   }
 
   const micButtonClassNames = [
@@ -421,13 +390,6 @@ export function PracticeSession() {
               </p>
             </>
           ) : null}
-        </section>
-      ) : null}
-
-      {errorMessage ? (
-        <section className="error-banner">
-          <p className="label">Issue</p>
-          <p className="error-copy">{errorMessage}</p>
         </section>
       ) : null}
 
