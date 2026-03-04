@@ -36,7 +36,7 @@
 - The microphone glyph inside the circular button is now slightly inset so a true black ring shows around it, and long-press recording adds a blue pulsing glow around the button
 - The Chinese prompt card, English action card, and result card now use centered text alignment
 - Greeting cards can carry manual accepted English variants beyond the literal translation (for example `你好` accepts `hi`, `hey`, and `yo` in addition to `hello`)
-- The result card now shows `You said` plus an `Alternative phrases:` section when the current card has extra accepted variants
+- The result card now omits the explanatory sentence and shows `You said` plus an `Alternative phrases:` section when the current card has extra accepted variants
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
 - The recorder now preserves the browser's actual audio MIME type and file extension when uploading to the transcription endpoint, to avoid Safari/iPhone `unsupported or corrupted audio` errors from mismatched `.webm` uploads

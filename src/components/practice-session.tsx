@@ -79,18 +79,6 @@ function getFeedbackTitle(result: AttemptEvaluation) {
   return "Try again";
 }
 
-function getFeedbackCopy(result: AttemptEvaluation) {
-  if (result.outcome === "correct") {
-    return "That matched an accepted English answer. Move on when you are ready.";
-  }
-
-  if (result.outcome === "close") {
-    return "You were close. Try it once more with clearer pronunciation or wording.";
-  }
-
-  return "That did not match yet. Take another shot and try again.";
-}
-
 function getAlternativePhrases(englishAnswer: string, acceptedAnswers: string[]) {
   const normalizedPrimary = englishAnswer.trim().toLowerCase();
   const seen = new Set<string>();
@@ -401,7 +389,6 @@ export function PracticeSession() {
       {feedback ? (
         <section className={feedbackClassNames}>
           <p className={feedbackTitleClassNames}>{getFeedbackTitle(feedback)}</p>
-          <p className="feedback-copy">{getFeedbackCopy(feedback)}</p>
           <p className="transcript-label">You said</p>
           <p className="transcript-text">{feedback.transcript}</p>
           {alternativePhrases.length ? (
