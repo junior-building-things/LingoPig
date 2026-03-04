@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { currentDeck } from "@/lib/deck";
+import { normalizeEnglishAnswer } from "@/lib/grading";
 import type { AttemptEvaluation } from "@/lib/types";
 import lingoPigIcon from "../../lingo-pig-icon.png";
 import microphoneIcon from "../../microphone.png";
@@ -80,14 +81,22 @@ function getFeedbackTitle(result: AttemptEvaluation) {
   return "Try again";
 }
 
-function getAlternativePhrases(englishAnswer: string, acceptedAnswers: string[]) {
-  const normalizedPrimary = englishAnswer.trim().toLowerCase();
+function getAlternativePhrases(
+  englishAnswer: string,
+  acceptedAnswers: string[],
+  normalizedSpokenAnswer?: string
+) {
+  const normalizedPrimary = normalizeEnglishAnswer(englishAnswer);
   const seen = new Set<string>();
 
   return acceptedAnswers.filter((answer) => {
-    const normalizedAnswer = answer.trim().toLowerCase();
+    const normalizedAnswer = normalizeEnglishAnswer(answer);
 
     if (!normalizedAnswer || normalizedAnswer === normalizedPrimary) {
+      return false;
+    }
+
+    if (normalizedSpokenAnswer && normalizedAnswer === normalizedSpokenAnswer) {
       return false;
     }
 
@@ -325,7 +334,8 @@ export function PracticeSession() {
     .join(" ");
   const alternativePhrases = getAlternativePhrases(
     currentCard.englishAnswer,
-    currentCard.acceptedEnglishAnswers
+    currentCard.acceptedEnglishAnswers,
+    feedback?.normalizedTranscript
   );
 
   return (
