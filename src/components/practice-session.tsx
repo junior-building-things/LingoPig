@@ -270,9 +270,6 @@ export function PracticeSession() {
             <span className="brand-copy">Word and pronunciation practice</span>
           </div>
         </div>
-        <span className="progress-pill">
-          {cardIndex + 1} / {currentDeck.length}
-        </span>
       </header>
 
       <article className="prompt-card">
