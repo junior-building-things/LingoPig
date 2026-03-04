@@ -33,7 +33,7 @@
 - The subtitle under the product name uses `SF Pro Display` styling aligned with DictateAI's subtitle treatment and currently reads `Word and pronunciation practice`
 - The top-left LingoPig icon is larger than the initial version, is currently rendered at `64x64`, and now uses shadow only with no outline ring
 - The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains a large circular microphone button using `microphone.png`
-- The microphone glyph inside the circular button has been enlarged to fill more of the button face, and long-press recording now adds a blue pulsing glow around the button
+- The microphone glyph inside the circular button now fills the button with no intentional inset gap, and long-press recording adds a blue pulsing glow around the button
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
 - The recorder now preserves the browser's actual audio MIME type and file extension when uploading to the transcription endpoint, to avoid Safari/iPhone `unsupported or corrupted audio` errors from mismatched `.webm` uploads
