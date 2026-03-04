@@ -11,6 +11,7 @@ type SessionStatus = "idle" | "preparing" | "recording" | "submitting";
 
 type ApiError = {
   error: string;
+  code?: string;
 };
 
 function getPreferredRecordingMimeType() {
@@ -138,6 +139,16 @@ export function PracticeSession() {
         | null;
 
       if (!response.ok) {
+        if (
+          payload &&
+          "error" in payload &&
+          payload.code === "NO_SPEECH_DETECTED"
+        ) {
+          setErrorMessage(null);
+          setFeedback(null);
+          return;
+        }
+
         throw new Error(
           payload && "error" in payload
             ? payload.error
@@ -220,7 +231,8 @@ export function PracticeSession() {
         }
 
         if (!blob.size) {
-          setErrorMessage("No audio was captured. Try again.");
+          setErrorMessage(null);
+          setFeedback(null);
           setStatus("idle");
           return;
         }

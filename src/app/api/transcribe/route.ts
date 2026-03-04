@@ -75,7 +75,10 @@ export async function POST(request: Request) {
 
   if (!transcript) {
     return NextResponse.json(
-      { error: "No speech was detected. Try recording again." },
+      {
+        error: "No speech was detected. Try recording again.",
+        code: "NO_SPEECH_DETECTED"
+      },
       { status: 422 }
     );
   }
@@ -84,4 +87,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(result);
 }
-
