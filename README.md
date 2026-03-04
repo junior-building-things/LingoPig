@@ -23,5 +23,5 @@ The microphone flow requires `https://` in production. `localhost` works for dev
 ## Notes
 
 - This scaffold uses a conservative Next.js 15 dependency range and React 19 to stay aligned with the rest of the workspace.
-- `hsk1-phrases.csv` is the active editable phrase source for now. Run `npm run sync:phrases` when you change it to regenerate `src/lib/deck.ts` before committing.
+- `new-phrases.csv` is the active editable phrase source for now. Run `npm run sync:phrases` when you change it to regenerate `src/lib/deck.ts` before committing.
 - Matching is deterministic and tolerant, but it is still transcript-based, not true pronunciation scoring.

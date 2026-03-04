@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const projectRoot = process.cwd();
-const sourceFileName = "hsk1-phrases.csv";
+const sourceFileName = "new-phrases.csv";
 const sourcePath = path.join(projectRoot, sourceFileName);
 const outputPath = path.join(projectRoot, "src", "lib", "deck.ts");
 
