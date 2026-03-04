@@ -22,7 +22,7 @@
 ## Initial Scaffold
 - Frontend/runtime scaffold: Next.js app-router project with React 19 and TypeScript
 - Main MVP screen is implemented as a mobile-first single-screen practice flow in `src/components/practice-session.tsx`
-- Phrase content now comes from `phrases.csv` (currently 100 rows), and `src/lib/deck.ts` is generated from that source
+- Phrase content is temporarily sourced from `hsk1-phrases.csv` (currently 10 rows), and `src/lib/deck.ts` is generated from that source
 - Speech checking is wired through a server route at `src/app/api/transcribe/route.ts`
 - The server route calls OpenAI transcription with `gpt-4o-transcribe`, locked to English transcription (`language=en`)
 - Answer grading is deterministic and local via normalization plus tolerant edit-distance matching in `src/lib/grading.ts`

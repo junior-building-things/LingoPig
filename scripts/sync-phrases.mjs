@@ -2,7 +2,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const projectRoot = process.cwd();
-const sourcePath = path.join(projectRoot, "phrases.csv");
+const sourceFileName = "hsk1-phrases.csv";
+const sourcePath = path.join(projectRoot, sourceFileName);
 const outputPath = path.join(projectRoot, "src", "lib", "deck.ts");
 
 function parsePhrasesCsv(rawCsv) {
@@ -20,7 +21,7 @@ function parsePhrasesCsv(rawCsv) {
 
     if (!hanzi || !english) {
       throw new Error(
-        `Invalid phrases.csv row ${index + 2}: expected Chinese, Pinyin, English.`
+        `Invalid ${sourceFileName} row ${index + 2}: expected Chinese, Pinyin, English.`
       );
     }
 
@@ -89,7 +90,9 @@ async function main() {
 
   await writeFile(outputPath, deckModule, "utf8");
 
-  console.log(`Synced ${rows.length} phrases from phrases.csv to src/lib/deck.ts`);
+  console.log(
+    `Synced ${rows.length} phrases from ${sourceFileName} to src/lib/deck.ts`
+  );
 }
 
 main().catch((error) => {
