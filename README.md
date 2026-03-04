@@ -23,6 +23,5 @@ The microphone flow requires `https://` in production. `localhost` works for dev
 ## Notes
 
 - This scaffold uses a conservative Next.js 15 dependency range and React 19 to stay aligned with the rest of the workspace.
-- The starter deck is static and lives in `src/lib/deck.ts`.
+- `phrases.csv` is the editable phrase source. `npm run sync:phrases` regenerates `src/lib/deck.ts`, and `dev`, `build`, and `typecheck` run that sync automatically.
 - Matching is deterministic and tolerant, but it is still transcript-based, not true pronunciation scoring.
-

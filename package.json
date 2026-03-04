@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "sync:phrases": "node scripts/sync-phrases.mjs",
+    "dev": "npm run sync:phrases && next dev",
+    "build": "npm run sync:phrases && next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "npm run sync:phrases && tsc --noEmit"
   },
   "dependencies": {
     "next": "^15.0.0",
@@ -20,4 +21,3 @@
     "typescript": "^5.9.0"
   }
 }
-
