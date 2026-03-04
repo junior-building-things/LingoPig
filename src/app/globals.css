@@ -82,6 +82,8 @@ button {
 .brand-lockup {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-height: 64px;
   gap: 0.1rem;
 }
 
@@ -100,7 +102,7 @@ button {
   font-size: 1rem;
   font-weight: 400;
   letter-spacing: normal;
-  line-height: 1.65;
+  line-height: 1.25;
 }
 
 .prompt-card,
