@@ -18,14 +18,14 @@ const phraseRows: PhraseRow[] = [
     english: "not only that; moreover; besides that"
   },
   {
-    hanzi: "顺便问一下",
-    pinyin: "shùnbiàn wèn yíxià",
-    english: "by the way; incidentally"
+    hanzi: "我想你",
+    pinyin: "wǒ xiǎng nǐ",
+    english: "I miss you; I’m thinking of you; I think of you"
   },
   {
-    hanzi: "难怪",
-    pinyin: "nánguài",
-    english: "no wonder; it's no surprise"
+    hanzi: "我也爱你",
+    pinyin: "wǒ yě ài nǐ",
+    english: "I love you too; love you too"
   },
   {
     hanzi: "原来如此",
