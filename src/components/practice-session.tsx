@@ -273,6 +273,17 @@ export function PracticeSession() {
     setFeedback(null);
   }
 
+  function goToPreviousCard() {
+    if (status !== "idle") {
+      return;
+    }
+
+    setCardIndex(
+      (currentIndex) => (currentIndex - 1 + currentDeck.length) % currentDeck.length
+    );
+    setFeedback(null);
+  }
+
   const micButtonClassNames = [
     "mic-button",
     status === "recording" ? "mic-button--recording" : "",
@@ -295,12 +306,6 @@ export function PracticeSession() {
     .filter(Boolean)
     .join(" ");
 
-  const nextButtonClassNames = [
-    "next-button",
-    feedback?.outcome === "correct" ? "next-button--earned" : ""
-  ]
-    .filter(Boolean)
-    .join(" ");
   const alternativePhrases =
     feedback?.outcome === "correct"
       ? getAlternativePhrases(
@@ -330,7 +335,27 @@ export function PracticeSession() {
       </header>
 
       <article className="prompt-card">
-        <p className="card-title">Chinese</p>
+        <div className="prompt-card-head">
+          <button
+            type="button"
+            className="nav-button"
+            aria-label="Previous phrase"
+            onClick={goToPreviousCard}
+            disabled={status !== "idle"}
+          >
+            ←
+          </button>
+          <p className="card-title">Chinese</p>
+          <button
+            type="button"
+            className="nav-button"
+            aria-label="Next phrase"
+            onClick={goToNextCard}
+            disabled={status !== "idle"}
+          >
+            →
+          </button>
+        </div>
         <p className="prompt-text">{currentCard.hanzi}</p>
       </article>
 
@@ -396,16 +421,6 @@ export function PracticeSession() {
         </section>
       ) : null}
 
-      <div className="footer-actions">
-        <button
-          type="button"
-          className={nextButtonClassNames}
-          onClick={goToNextCard}
-          disabled={status !== "idle"}
-        >
-          Next Phrase
-        </button>
-      </div>
     </section>
   );
 }

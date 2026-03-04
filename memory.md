@@ -26,7 +26,7 @@
 - Speech checking is wired through a server route at `src/app/api/transcribe/route.ts`
 - The server route calls OpenAI transcription with `gpt-4o-transcribe`, locked to English transcription (`language=en`)
 - Answer grading is deterministic and local via normalization plus tolerant edit-distance matching in `src/lib/grading.ts`
-- MVP helpers currently include next phrase navigation
+- MVP helpers currently include previous/next arrow navigation in the Chinese card header
 - `npm run sync:phrases` regenerates `src/lib/deck.ts`, but the sync is manual now; `dev`, `build`, and `typecheck` no longer run it automatically
 - The app uses `lingo-pig-icon.png` for Next.js app icons and in the top-left header beside the product name
 - The `LingoPig` wordmark now matches DictateAI's title styling: `SF Pro Display` with `font-weight: 700`
@@ -39,6 +39,7 @@
 - The active HSK1 CSV now supports semicolon-separated English variants per row; the first variant becomes the primary answer and the full variant set is accepted during grading
 - The result card now omits the explanatory sentence and shows `You said` plus an `Alternative phrases:` section only after a correct answer, excluding whichever accepted phrase the user actually said
 - Mic-flow failures are now fully silent in the UI: no `Issue` banner is rendered, and any recording/transcription error simply returns to the idle `Press & hold to speak` state
+- The old bottom `Next Phrase` button is removed; navigation now uses back/forward arrow buttons at the top of the Chinese card
 - The header no longer shows a top-right phrase counter
 - The mic button disables iOS image callout/drag behavior on the mic asset so long-press is reserved for recording instead of image-save previews
 - The recorder now preserves the browser's actual audio MIME type and file extension when uploading to the transcription endpoint, to avoid Safari/iPhone `unsupported or corrupted audio` errors from mismatched `.webm` uploads
