@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { currentDeck } from "@/lib/deck";
 import type { AttemptEvaluation } from "@/lib/types";
+import lingoPigIcon from "../../lingo-pig-icon.png";
 
 type SessionStatus = "idle" | "preparing" | "recording" | "submitting";
 
@@ -256,8 +258,18 @@ export function PracticeSession() {
     <section className="session">
       <header className="app-bar">
         <div className="brand">
-          <span className="brand-mark">LingoPig</span>
-          <span className="brand-copy">Speak the English answer</span>
+          <Image
+            src={lingoPigIcon}
+            alt="LingoPig icon"
+            className="brand-icon"
+            width={38}
+            height={38}
+            priority
+          />
+          <div className="brand-lockup">
+            <span className="brand-mark">LingoPig</span>
+            <span className="brand-copy">Speak the English answer</span>
+          </div>
         </div>
         <span className="progress-pill">
           {cardIndex + 1} / {currentDeck.length}
