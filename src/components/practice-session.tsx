@@ -261,8 +261,8 @@ export function PracticeSession() {
             src={lingoPigIcon}
             alt="LingoPig icon"
             className="brand-icon"
-            width={52}
-            height={52}
+            width={64}
+            height={64}
             priority
           />
           <div className="brand-lockup">
