@@ -268,7 +268,9 @@ export function PracticeSession() {
           />
           <div className="brand-lockup">
             <span className="brand-mark">LingoPig</span>
-            <span className="brand-copy">Speak the English answer</span>
+            <span className="brand-copy">
+              Vocabulary and pronunciation practice
+            </span>
           </div>
         </div>
         <span className="progress-pill">

@@ -30,6 +30,7 @@
 - `npm run sync:phrases` regenerates `src/lib/deck.ts`, and the `dev`, `build`, and `typecheck` scripts run that sync automatically
 - The app uses `lingo-pig-icon.png` for Next.js app icons and in the top-left header beside the product name
 - The `LingoPig` wordmark now matches DictateAI's title styling: `SF Pro Display` with `font-weight: 700`
+- The subtitle under the product name uses `SF Pro Display` styling aligned with DictateAI's subtitle treatment and currently reads `Vocabulary and pronunciation practice`
 - The homepage now uses two primary stacked cards: a `Chinese:` prompt card and an `English:` action card that contains the main microphone button and the reveal-English control
 
 ## Deployment Notes
